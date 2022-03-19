@@ -163,3 +163,39 @@ mapa_br.update_layout(
         }
       ])
 mapa_br.update_layout(height=600, margin={'r': 0, 't': 0, 'l': 0, 'b': 0})
+
+
+# Create a function that receives a country and considers
+# all cities with 1 million + inhabitants and returns the percentage
+# of those cities located in that specific country
+
+set = data[data['population'] > 10**6]
+
+
+def metro(country):
+    per = round(len(set[set["country"] == country]) * 100 / len(set), 2)
+    return f'{per}%'
+
+
+print('WORLD METROPOLES: ')
+
+print(f'\t{metro("Brazil")} are in Brazil')  # ----> 2.49% of metropoles are located in Brazil
+print(f'\t{metro("China")} are in China')  # ----> 44.26% of metropoles are located in China
+print(f'\t{metro("India")} are in India')  # ----> 6.78% in India
+print(f'\t{metro("United States")} are in the USA')  # ----> 6.92% in the United States
+
+
+# Percentage of metropoles per Hemisphere
+
+def metro_hem(hemisphere):
+    set2 = hemisphere[hemisphere['population'] > 10 ** 6]
+    per = round(len(set2) * 100 / len(set), 2)
+    return f'{per}%'
+
+
+print()
+print(f'\t{metro_hem(east)} are in the East')  # ----> 81.05%
+print(f'\t{metro_hem(west)} are in the West')  # ----> 18.95%
+print()
+print(f'\t{metro_hem(north)} are in the North')  # ----> 90.73%
+print(f'\t{metro_hem(south)} are in the South')  # ----> 9.27%
