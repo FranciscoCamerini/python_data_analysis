@@ -24,7 +24,7 @@ indio = data[data['TP_COR_RACA'] == 5]
 
 
 m_preta = func.media_raca(preta)  # ----> 480
-m_branca = func.media_raca(branca)   # ----> 518   7,9%
+m_branca = func.media_raca(branca)   # ----> 518  
 m_parda = func.media_raca(parda)  # ----> 494
 m_amarela = func.media_raca(amarela)  # ----> 527
 m_indio = func.media_raca(indio)  # ----> 497
