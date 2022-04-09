@@ -26,15 +26,30 @@ map.update_layout(mapbox_style='open-street-map')
 map.update_layout( height=600, margin={'r':0, 't':0, 'l':0, 'b':0})
 map.show()
 
+plt.rcParams['figure.figsize'] = (10,8)
+sns.set_theme(style="darkgrid")
 
-x = int(input('Digite um número de quartos: '))
+sns.relplot(x="Area", y="Price", hue="Room", data=data)
+plt.show()
+
+x = int(input('Digite um número de quartos:'))
 
 data_x = data[data['Room'] == x]
 num_x = data_x.shape[0]
-mean_x = int(round(data_x['Price'].mean()))
 
-print(f'Existem {num_x} casas com {x} quartos, com um preço médio de {mean_x} euros')
+if num_x == 1:
+    mean_x = int(round(data['Price'].max(), 0))
+else:
+    mean_x = int(round(data_x['Price'].mean(), 0))
+    
+mean_x = list(str(mean_x))
 
+if len(mean_x) > 6:
+    new_num = f'{mean_x[0]}.{mean_x[1]} milhões'
+else:
+    new_num = f'{mean_x[0]}{mean_x[1]}{mean_x[2]} mil'
+
+print(f'Existem {num_x} casa(s) com {x} quarto(s), com um preço médio de {new_num} euros')
 
 data_map = data_x[['Address', 'Lat', 'Lon', 'Price', 'Room', 'Area']]
 map_x = px.scatter_mapbox( data_map, lat='Lat', lon='Lon',\
@@ -45,9 +60,8 @@ map_x.update_layout(mapbox_style='open-street-map')
 map_x.update_layout( height=600, margin={'r':0, 't':0, 'l':0, 'b':0})
 map_x.show()
 
-
 plt.rcParams['figure.figsize'] = (10,8)
 sns.set_theme(style="darkgrid")
 
-sns.relplot(x="Area", y="Price", hue="Room", data=data)
+sns.relplot(x="Area", y="Price", hue="Room", data=data_x)
 plt.show()
